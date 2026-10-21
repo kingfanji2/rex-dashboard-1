@@ -1,1 +1,53 @@
+<button id="rex-top" aria-label="Back to top">
+  REX ↑
+</button>
 
+<style>
+#rex-top {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translate(-50%, -20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s, transform .3s;
+  z-index: 9999;
+  padding: 12px 24px;
+  border-radius: 30px;
+  background: #071a35;
+  color: #20aaff;
+  border: 1px solid #168cff;
+  font-weight: 900;
+  cursor: pointer;
+}
+#rex-top.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+.brand img {
+  width: 100%;
+  max-width: 220px;
+  transition: width .25s;
+}
+body.scrolling .brand img {
+  width: 110px;
+}
+</style>
+
+<script>
+const rexTop = document.getElementById("rex-top");
+
+window.addEventListener("scroll", () => {
+  document.body.classList.toggle(
+    "scrolling", window.scrollY > 90
+  );
+  rexTop.classList.toggle(
+    "visible", window.scrollY > 260
+  );
+});
+
+rexTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+</script>
