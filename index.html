@@ -1,53 +1,205 @@
-<button id="rex-top" aria-label="Back to top">
-  REX ↑
-</button>
 
-<style>
-#rex-top {
-  position: fixed;
-  top: 16px;
-  left: 50%;
-  transform: translate(-50%, -20px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .3s, transform .3s;
-  z-index: 9999;
-  padding: 12px 24px;
-  border-radius: 30px;
-  background: #071a35;
-  color: #20aaff;
-  border: 1px solid #168cff;
-  font-weight: 900;
-  cursor: pointer;
-}
-#rex-top.visible {
-  opacity: 1;
-  transform: translate(-50%, 0);
-  pointer-events: auto;
-}
-.brand img {
-  width: 100%;
-  max-width: 220px;
-  transition: width .25s;
-}
-body.scrolling .brand img {
-  width: 110px;
-}
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0812">
+  <meta name="description" content="Rex Discord Bot Dashboard — Manage your server, commands and subscription.">
+  <title>Rex Dashboard</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div id="halloween-decor" aria-hidden="true"></div>
 
-<script>
-const rexTop = document.getElementById("rex-top");
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a href="#overview" class="brand nav-link" data-page="overview">
+        <div class="brand-icon">R</div>
+        <div>
+          <strong>REX<span>.</span></strong>
+          <small>CONTROL CENTER</small>
+        </div>
+      </a>
 
-window.addEventListener("scroll", () => {
-  document.body.classList.toggle(
-    "scrolling", window.scrollY > 90
-  );
-  rexTop.classList.toggle(
-    "visible", window.scrollY > 260
-  );
-});
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="navigation" aria-label="Main navigation">
+        <button class="nav-item active" data-page="overview"><span>◈</span> Overview</button>
+        <button class="nav-item" data-page="servers"><span>▦</span> My Servers</button>
+        <button class="nav-item" data-page="commands"><span>⌘</span> Commands</button>
+        <button class="nav-item" data-page="premium"><span>♛</span> Subscriptions</button>
+        <button class="nav-item" data-page="redeem"><span>✳</span> Redeem Code</button>
+        <button class="nav-item" data-page="customize"><span>✦</span> Bot Customisation</button>
+      </nav>
 
-rexTop.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-</script>
+      <div class="sidebar-label">INFORMATION</div>
+      <nav class="navigation">
+        <a class="nav-item external-link" href="https://discord.gg/rexsupport" target="_blank" rel="noopener noreferrer"><span>◉</span> Support Server ↗</a>
+        <a class="nav-item external-link" href="https://discord.com/developers/applications" target="_blank" rel="noopener noreferrer"><span>↗</span> Discord Developer</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="season-card">
+          <div class="season-icon">🎃</div>
+          <strong>Spooky Season</strong>
+          <p>Something spooky is brewing...</p>
+          <div class="season-bar"><span></span></div>
+          <small>REX HALLOWEEN EVENT</small>
+        </div>
+
+        <button class="user-card" id="login-button">
+          <div class="avatar">?</div>
+          <div class="user-info">
+            <strong id="user-name">Guest User</strong>
+            <small id="user-status">Not connected</small>
+          </div>
+          <span class="user-menu-icon">↗</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobile-menu" aria-label="Toggle navigation">☰</button>
+        <div class="breadcrumb">REX / <span id="breadcrumb-current">OVERVIEW</span></div>
+        <div class="topbar-actions">
+          <span class="season-pill"><span class="status-dot"></span> HALLOWEEN EDITION</span>
+          <a class="top-support" href="https://discord.gg/rexsupport" target="_blank" rel="noopener noreferrer">Get Support ↗</a>
+        </div>
+      </header>
+
+      <section class="page active" id="page-overview">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow"><span>✦</span> YOUR BOT. YOUR RULES.</div>
+            <h1>Welcome to the<br><span>Rex Dashboard.</span></h1>
+            <p>Your command centre for server management, bot settings and premium features. The spooky season starts here.</p>
+            <div class="hero-actions">
+              <button class="button button-primary" data-go="servers">Explore Dashboard <span>→</span></button>
+              <a class="button button-secondary" href="https://discord.gg/rexsupport" target="_blank" rel="noopener noreferrer">Join Support ↗</a>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="hero-orbit orbit-one"></div>
+            <div class="hero-orbit orbit-two"></div>
+            <div class="hero-moon">☾</div>
+            <div class="hero-ghost">👻</div>
+            <div class="hero-pumpkin">🎃</div>
+            <div class="hero-star star-one">✦</div>
+            <div class="hero-star star-two">✧</div>
+          </div>
+          <div class="hero-bottom"><span>01</span> CONTROL EVERYTHING <span class="hero-bottom-line"></span> REX NETWORK</div>
+        </div>
+
+        <div class="section-heading">
+          <div><span class="eyebrow">YOUR CONTROL PANEL</span><h2>Dashboard Overview</h2></div>
+          <span class="demo-label"><span></span> FRONTEND PREVIEW</span>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-top"><span>Connected servers</span><span class="stat-icon violet">▦</span></div>
+            <strong>—</strong><small>Connect Discord to view servers</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Active commands</span><span class="stat-icon orange">⌘</span></div>
+            <strong id="overview-enabled">8</strong><small>Sample frontend settings</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Your subscription</span><span class="stat-icon pink">♛</span></div>
+            <strong class="tier-stat" id="overview-tier">Free</strong><small id="overview-tier-note">Explore available tiers</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Dashboard status</span><span class="stat-icon green">✦</span></div>
+            <strong class="online-text">Online</strong><small>Website interface loaded</small>
+          </article>
+        </div>
+
+        <div class="section-heading section-heading-small">
+          <div><span class="eyebrow">QUICK ACCESS</span><h2>Where do you want to go?</h2></div>
+        </div>
+
+        <div class="quick-grid">
+          <button class="quick-card" data-go="servers"><span class="quick-icon violet">▦</span><strong>Manage Servers</strong><p>Choose a server and manage its settings.</p><span class="quick-arrow">↗</span></button>
+          <button class="quick-card" data-go="commands"><span class="quick-icon orange">⌘</span><strong>Command Centre</strong><p>Explore commands and their settings.</p><span class="quick-arrow">↗</span></button>
+          <button class="quick-card" data-go="premium"><span class="quick-icon pink">♛</span><strong>Unlock Premium</strong><p>Compare Free, Premium, Priority and Ultra.</p><span class="quick-arrow">↗</span></button>
+          <button class="quick-card" data-go="redeem"><span class="quick-icon green">✳</span><strong>Redeem a Code</strong><p>Open the premium redemption interface.</p><span class="quick-arrow">↗</span></button>
+        </div>
+
+        <div class="notice-card"><span class="notice-icon">✦</span><div><strong>Welcome to the new Rex experience</strong><p>This is the frontend preview. Sign-in, live server data and account changes will be connected when the backend is ready.</p></div></div>
+      </section>
+
+      <section class="page" id="page-servers">
+        <div class="page-heading"><span class="eyebrow">SERVER MANAGEMENT</span><h1>My Servers<span>.</span></h1><p>Your Discord servers, all in one place.</p></div>
+        <div class="empty-state">
+          <div class="empty-art">🏰</div>
+          <h2>No servers loaded yet</h2>
+          <p>Connect your Discord account and authorise Rex to display the servers you can manage.</p>
+          <button class="button button-primary" data-login>Connect Discord ↗</button>
+          <small>Discord OAuth will be connected through your backend.</small>
+        </div>
+      </section>
+
+      <section class="page" id="page-commands">
+        <div class="page-heading"><span class="eyebrow">COMMAND MANAGEMENT</span><h1>Command Centre<span>.</span></h1><p>Explore Rex commands and configure your preferred settings.</p></div>
+        <div class="demo-warning"><span>ⓘ</span> Preview mode: toggles currently affect this browser interface only. They do not change your live Discord bot.</div>
+        <div class="toolbar">
+          <label class="search-box"><span>⌕</span><input id="command-search" type="search" placeholder="Search commands..." aria-label="Search commands"></label>
+          <select id="command-category" aria-label="Filter command category">
+            <option value="all">All categories</option>
+            <option value="Moderation">Moderation</option>
+            <option value="Economy">Economy</option>
+            <option value="Utility">Utility</option>
+            <option value="Fun">Fun</option>
+          </select>
+        </div>
+        <div class="command-list" id="command-list">
+          <article class="command-row" data-name="ban" data-category="Moderation"><div class="command-symbol">⚒</div><div class="command-description"><strong>/ban</strong><p>Ban a member from your server.</p><span class="category-tag">Moderation</span></div><label class="toggle"><input type="checkbox" checked data-command="ban"><span></span></label></article>
+          <article class="command-row" data-name="kick" data-category="Moderation"><div class="command-symbol">⚒</div><div class="command-description"><strong>/kick</strong><p>Remove a member from your server.</p><span class="category-tag">Moderation</span></div><label class="toggle"><input type="checkbox" checked data-command="kick"><span></span></label></article>
+          <article class="command-row" data-name="warn" data-category="Moderation"><div class="command-symbol">⚠</div><div class="command-description"><strong>/warn</strong><p>Issue a warning to a member.</p><span class="category-tag">Moderation</span></div><label class="toggle"><input type="checkbox" checked data-command="warn"><span></span></label></article>
+          <article class="command-row" data-name="balance" data-category="Economy"><div class="command-symbol">◈</div><div class="command-description"><strong>/balance</strong><p>Check your virtual wallet balance.</p><span class="category-tag">Economy</span></div><label class="toggle"><input type="checkbox" checked data-command="balance"><span></span></label></article>
+          <article class="command-row" data-name="daily" data-category="Economy"><div class="command-symbol">◈</div><div class="command-description"><strong>/daily</strong><p>Claim your daily virtual reward.</p><span class="category-tag">Economy</span></div><label class="toggle"><input type="checkbox" checked data-command="daily"><span></span></label></article>
+          <article class="command-row" data-name="userinfo" data-category="Utility"><div class="command-symbol">✦</div><div class="command-description"><strong>/userinfo</strong><p>View information about a member.</p><span class="category-tag">Utility</span></div><label class="toggle"><input type="checkbox" checked data-command="userinfo"><span></span></label></article>
+          <article class="command-row" data-name="serverinfo" data-category="Utility"><div class="command-symbol">✦</div><div class="command-description"><strong>/serverinfo</strong><p>View details about your server.</p><span class="category-tag">Utility</span></div><label class="toggle"><input type="checkbox" checked data-command="serverinfo"><span></span></label></article>
+          <article class="command-row" data-name="8ball" data-category="Fun"><div class="command-symbol">☻</div><div class="command-description"><strong>/8ball</strong><p>Ask a question and reveal a mysterious answer.</p><span class="category-tag">Fun</span></div><label class="toggle"><input type="checkbox" checked data-command="8ball"><span></span></label></article>
+        </div>
+        <div id="no-commands" class="empty-search hidden">No commands match your search.</div>
+      </section>
+
+      <section class="page" id="page-premium">
+        <div class="page-heading"><span class="eyebrow">CHOOSE YOUR POWER</span><h1>Rex Subscriptions<span>.</span></h1><p>Discover the tier that fits your community. Final features and pricing will be configured with the backend.</p></div>
+        <div class="tier-grid">
+          <article class="tier-card"><div class="tier-symbol free-symbol">✦</div><span class="tier-name">FREE</span><h2>Free</h2><p class="tier-summary">The essentials to get started.</p><ul><li>✓ Core bot commands</li><li>✓ Basic server tools</li><li>✓ Community support</li><li>✓ Standard dashboard</li></ul><button class="button button-secondary tier-button" data-tier="Free">Current starting tier</button></article>
+          <article class="tier-card"><div class="tier-symbol premium-symbol">♛</div><span class="tier-name">PREMIUM</span><h2>Premium</h2><p class="tier-summary">More control for your server.</p><ul><li>✓ Premium feature access</li><li>✓ Expanded settings</li><li>✓ Additional customisation</li><li>✓ Premium-only options</li></ul><button class="button button-primary tier-button" data-go="redeem">Redeem a Code</button></article>
+          <article class="tier-card featured-tier"><div class="featured-badge">PRIORITY ACCESS</div><div class="tier-symbol priority-symbol">⚡</div><span class="tier-name">PRIORITY</span><h2>Priority</h2><p class="tier-summary">Enhanced access and control.</p><ul><li>✓ Premium features</li><li>✓ Priority-tier options</li><li>✓ Extra configuration tools</li><li>✓ Priority feature access</li></ul><button class="button button-primary tier-button" data-go="redeem">Redeem a Code</button></article>
+          <article class="tier-card"><div class="tier-symbol ultra-symbol">✧</div><span class="tier-name">ULTRA</span><h2>Ultra</h2><p class="tier-summary">The highest tier of Rex.</p><ul><li>✓ Priority features</li><li>✓ Ultra-tier options</li><li>✓ Advanced customisation</li><li>✓ Enhanced management tools</li></ul><button class="button button-secondary tier-button" data-go="redeem">Redeem a Code</button></article>
+        </div>
+        <p class="fine-print">Tier descriptions are illustrative interface content. Actual entitlements are determined by the connected Rex backend.</p>
+      </section>
+
+      <section class="page" id="page-redeem">
+        <div class="page-heading"><span class="eyebrow">UNLOCK YOUR FEATURES</span><h1>Redeem a Code<span>.</span></h1><p>Enter a code provided by the Rex team.</p></div>
+        <div class="redeem-layout">
+          <div class="redeem-panel"><div class="redeem-icon">🎁</div><h2>Your next upgrade awaits.</h2><p>Have a Premium, Priority or Ultra code? Enter it below to start the redemption process.</p><form id="redeem-form"><label for="redeem-code">REDEMPTION CODE</label><input id="redeem-code" name="code" placeholder="REX-XXXX-XXXX" autocomplete="off" required maxlength="100"><button class="button button-primary" type="submit">Check Code <span>→</span></button></form><p class="form-message" id="redeem-message" role="status">Demo only — real validation requires the backend.</p></div>
+          <div class="redeem-side"><div class="redeem-side-icon">♛</div><h3>Unlock more with Rex</h3><p>Access depends on your assigned subscription tier.</p><div class="mini-tier"><span class="mini-dot premium-dot"></span> Premium <span>More features</span></div><div class="mini-tier"><span class="mini-dot priority-dot"></span> Priority <span>Priority access</span></div><div class="mini-tier"><span class="mini-dot ultra-dot"></span> Ultra <span>Top tier</span></div><a href="https://discord.gg/rexsupport" target="_blank" rel="noopener noreferrer">Need a code? Contact support ↗</a></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-customize">
+        <div class="page-heading"><span class="eyebrow">MAKE REX YOURS</span><h1>Bot Customisation<span>.</span></h1><p>Explore the appearance settings planned for eligible subscriptions.</p></div>
+        <div class="customize-layout">
+          <div class="customize-panel"><h2>Bot profile</h2><p>Profile changes will be saved through the backend when connected.</p><div class="profile-preview"><div class="profile-avatar">R</div><div><strong>Rex</strong><span class="online-text">● Online preview</span><small>Made By Goose</small></div></div><label for="bot-display-name">Bot display name</label><input id="bot-display-name" maxlength="32" placeholder="Rex"><label for="bot-status">Status text</label><input id="bot-status" maxlength="100" placeholder="Made By Goose"><button class="button button-primary" id="preview-profile">Preview Changes</button><p class="form-message" id="customize-message" role="status"></p></div>
+          <div class="customize-panel"><h2>Profile appearance</h2><p>Changing the live bot avatar will require backend permissions and tier checks.</p><div class="appearance-option"><div><strong>Bot avatar</strong><small>Upload support will be added later.</small></div><span class="locked-label">BACKEND REQUIRED</span></div><div class="appearance-option"><div><strong>Custom status</strong><small>Preview a status on this page.</small></div><span class="locked-label">PREVIEW</span></div><div class="appearance-option"><div><strong>Premium cosmetics</strong><small>Availability depends on your tier.</small></div><span class="locked-label">TIER CHECK</span></div></div>
+        </div>
+      </section>
+
+      <footer class="footer"><div class="footer-brand"><span>R</span> REX DASHBOARD</div><span>Made for the Rex community <span class="footer-heart">♥</span></span><a href="https://discord.gg/rexsupport" target="_blank" rel="noopener noreferrer">Support ↗</a></footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
